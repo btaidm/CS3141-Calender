@@ -1,4 +1,7 @@
-package com.cs3141.calender;
+package com.cs3141.test;
+
+import com.cs3141.calender.Event;
+import com.cs3141.calender.EventManager;
 
 import java.util.Date;
 
