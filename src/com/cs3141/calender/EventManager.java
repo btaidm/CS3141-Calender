@@ -116,6 +116,7 @@ public class EventManager {
 			String[] allElements = nextLine.split(",");
 			if(allElements.length >= 3){
 				Event event = new Event(new Date(allElements[0]), allElements[1], allElements[2], allElements[3]);
+				this.events.put(event.getId(), event);
 			}
 		}
 		buffReader.close();

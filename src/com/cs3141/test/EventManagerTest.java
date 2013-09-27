@@ -14,7 +14,7 @@ public class EventManagerTest
 		EventManager manager = new EventManager();
 		Event e = new Event(new Date(), "TEST", "HERE", "THIS IS A TEST");
 		manager.addEvent(e);
-		if(!manager.getEvent(e.id).equals(e)){
+		if(!manager.getEvent(e.getId()).equals(e)){
 			System.out.println("ERROR in get");
 		}
 		if(!manager.removeEvent(e).equals(e)){

@@ -1,5 +1,6 @@
 package com.cs3141.calender;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,6 +23,14 @@ public class Calender {
 		Scanner input = new Scanner(System.in);
 		Scanner inputInt = new Scanner(System.in);
 		EventManager eventManager = new EventManager();
+		try {
+			eventManager.readFromCSV();
+		}
+		catch (IOException e)
+		{
+			System.out.println("Error Reading: " + e.toString());
+		}
+
 		boolean exit = false;
 		while (!exit) {
 			System.out.print("Calender Command: ");
@@ -67,6 +76,21 @@ public class Calender {
 				Event newEvent = new Event(newDate, name, place, discription);
 				eventManager.addEvent(newEvent);
 
+			}
+
+			if (in.equalsIgnoreCase("view") || in.equalsIgnoreCase("v")) {
+				eventManager.printAllEvents();
+			}
+
+			if(in.equalsIgnoreCase("save") || in.equalsIgnoreCase("s"))
+			{
+				try {
+					eventManager.saveToCSV();
+				}
+				catch (IOException e)
+				{
+					System.out.println("Error Saving: " + e.toString());
+				}
 			}
 
 			if (in.equalsIgnoreCase("exit") || in.equalsIgnoreCase("quit") || in.equalsIgnoreCase("q")) {
