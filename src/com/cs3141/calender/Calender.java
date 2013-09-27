@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -14,10 +15,13 @@ import java.util.Scanner;
  * Time: 8:31 PM
  */
 public class Calender {
-	private static final String help = "\nCalender by Tim and Matt\n" +
+	private static final String help = "Calender by Tim and Matt\n" +
 			"Help:\n" +
 			"\thelp, h, ?: displays this\n" +
-			"\texit, quit, q: exits calender\n";
+			"\texit, quit, q: exits calender\n" +
+			"\tadd event, add: Prompts for adding event\n" +
+			"\tview, v: View events from nearest to furthest out\n" +
+			"\tsave, s: Save the events to the calender file\n";
 
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
@@ -35,7 +39,7 @@ public class Calender {
 		while (!exit) {
 			System.out.print("Calender Command: ");
 			String in = input.nextLine();
-			System.out.println("You have typed " + in);
+			System.out.println();
 
 			if (in.equalsIgnoreCase("help") || in.equalsIgnoreCase("h") || in.equalsIgnoreCase("?")) {
 				System.out.println(help);
@@ -53,6 +57,10 @@ public class Calender {
 			}
 			if (in.equalsIgnoreCase("add event") || in.equalsIgnoreCase("add")) {
 				Date newDate = null;
+
+				System.out.print("Event Name: ");
+				String name = input.nextLine();
+
 				while(newDate == null)
 				{
 					System.out.print("Event Date (mm/dd/yyyy hh:mm AM/PM or mm-dd-yyyy hh:mm AM/PM): ");
@@ -64,22 +72,27 @@ public class Calender {
 					}
 				}
 
-				System.out.print("Event Name: ");
-				String name = input.nextLine();
-
 				System.out.print("Event Place: ");
 				String place = input.nextLine();
 
-				System.out.print("Event Name: ");
-				String discription = input.nextLine();
+				System.out.print("Event Description: ");
+				String description = input.nextLine();
 
-				Event newEvent = new Event(newDate, name, place, discription);
+				Event newEvent = new Event(newDate, name, place, description);
 				eventManager.addEvent(newEvent);
 
 			}
 
 			if (in.equalsIgnoreCase("view") || in.equalsIgnoreCase("v")) {
-				eventManager.printAllEvents();
+				ArrayList<Event> events = eventManager.getAllEvents();
+				for(Event event : events)
+				{
+					System.out.println(event.m_name + ": " + event.m_discription);
+					System.out.println("Place: " + event.m_place);
+					DateFormat dateFormat = new SimpleDateFormat("EEEE MMMM d, YYYY hh:mm a");
+					System.out.println(dateFormat.format(event.m_date));
+					System.out.println();
+				}
 			}
 
 			if(in.equalsIgnoreCase("save") || in.equalsIgnoreCase("s"))

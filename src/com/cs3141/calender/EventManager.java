@@ -87,8 +87,8 @@ public class EventManager {
 
 		for(Integer key: events.keySet()){
 			Event nextToWrite = events.get(key);
-			buffWriter.write(nextToWrite.m_date + "," + nextToWrite.m_discription + "," +
-					nextToWrite.m_name + "," + nextToWrite.m_place + "\n");
+			buffWriter.write(nextToWrite.m_date + "," + nextToWrite.m_name + "," +
+					nextToWrite.m_place + "," + nextToWrite.m_discription + "\n");
 		}
 		buffWriter.close();
 	}
@@ -114,7 +114,7 @@ public class EventManager {
 		while(buffReader.ready()){
 			String nextLine = buffReader.readLine();
 			String[] allElements = nextLine.split(",");
-			if(allElements.length >= 3){
+			if(allElements.length >= 4){
 				Event event = new Event(new Date(allElements[0]), allElements[1], allElements[2], allElements[3]);
 				this.events.put(event.getId(), event);
 			}
@@ -125,9 +125,16 @@ public class EventManager {
 	public void printAllEvents(){
 		for(Integer key: events.keySet()){
 			Event nextToWrite = events.get(key);
-			System.out.println(nextToWrite.m_date + "," + nextToWrite.m_discription + "," +
-					nextToWrite.m_name + "," + nextToWrite.m_place + "\n");
+			System.out.println(nextToWrite.m_date + "," + nextToWrite.m_name + "," +
+					nextToWrite.m_place + "," + nextToWrite.m_discription + "\n");
 		}
+	}
+
+	public ArrayList<Event> getAllEvents()
+	{
+		ArrayList<Event> eventRange = new ArrayList<Event>(events.values());
+		Collections.sort(eventRange);
+		return eventRange;
 	}
 
 }
