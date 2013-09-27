@@ -11,10 +11,9 @@ import java.util.Scanner;
  * User: Tim
  * Date: 9/26/13
  * Time: 8:31 PM
- * To change this template use File | Settings | File Templates.
  */
 public class Calender {
-	static String help = "\nCalender by Tim and Matt\n" +
+	private static final String help = "\nCalender by Tim and Matt\n" +
 			"Help:\n" +
 			"\thelp, h, ?: displays this\n" +
 			"\texit, quit, q: exits calender\n";
@@ -76,8 +75,8 @@ public class Calender {
 		}
 	}
 
-	private static String formatStrings[] = {"MM/dd/yyyy hh:mm a", "MM-dd-yyyy hh:mm a"};
-	static Date tryParse(String dateString)
+	private static final String formatStrings[] = {"MM/dd/yyyy hh:mm a", "MM-dd-yyyy hh:mm a"};
+	private static Date tryParse(String dateString)
 	{
 		for (String formatString : formatStrings)
 		{

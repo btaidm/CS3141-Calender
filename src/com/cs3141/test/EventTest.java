@@ -1,7 +1,5 @@
 package com.cs3141.test;
 
-
-
 import com.cs3141.calender.Event;
 
 import java.util.Date;
@@ -11,7 +9,6 @@ import java.util.Date;
  * User: Tim
  * Date: 9/25/13
  * Time: 2:29 PM
- * To change this template use File | Settings | File Templates.
  */
 public class EventTest {
 	public static void main(String [] args)
@@ -77,41 +74,41 @@ public class EventTest {
 		System.out.printf("Event Testing Done:\n\tPassed: %d\n\tFailed: %d", passCount, failCount);
 	}
 
-	static boolean testEventDate()
+	private static boolean testEventDate()
 	{
-		Date newDate = new Date(2013,9,25,12,0);
+		Date newDate = new Date();
 		Event newEvent = new Event(newDate, "name", "place", "descript");
 
 		return (newEvent.m_date.equals(newDate));
 	}
 
-	static boolean testEventName()
+	private static boolean testEventName()
 	{
 		String name = "Test1";
-		Event newEvent = new Event( new Date(2013,9,25,12,0), name, "place", "descript");
+		Event newEvent = new Event( new Date(), name, "place", "descript");
 
 		return (newEvent.m_name.equals(name));
 	}
 
-	static boolean testEventPlace()
+	private static boolean testEventPlace()
 	{
 		String place = "Test2";
-		Event newEvent = new Event( new Date(2013,9,25,12,0), "name", place, "descript");
+		Event newEvent = new Event( new Date(), "name", place, "descript");
 
 		return (newEvent.m_place.equals(place));
 	}
 
-	static boolean testEventDescript()
+	private static boolean testEventDescript()
 	{
 		String descript = "Test3";
-		Event newEvent = new Event( new Date(2013,9,25,12,0), "name", "place", descript);
+		Event newEvent = new Event( new Date(), "name", "place", descript);
 
 		return (newEvent.m_discription.equals(descript));
 	}
 
-	static boolean testEventID()
+	private static boolean testEventID()
 	{
-		Date newDate = new Date(2013,9,25,12,0);
+		Date newDate = new Date();
 		String name = "Test1";
 		String place = "Test2";
 		String descript = "Test3";
