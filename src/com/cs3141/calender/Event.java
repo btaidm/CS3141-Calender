@@ -21,13 +21,23 @@ public class Event implements Comparable {
 	public String m_name;
 	public String m_place;
 	public String m_discription;
+	public Repeated m_repeat = Repeated.NONE;
 
 	public Event(Date _date, String _name, String _place, String _dis) {
-		id = _date.hashCode() + _name.hashCode() + _place.hashCode() + _dis.hashCode();
+		id = _date.hashCode() + _name.hashCode() + _place.hashCode() + _dis.hashCode() + m_repeat.hashCode();
 		m_date = _date;
 		m_name = _name;
 		m_place = _place;
 		m_discription = _dis;
+	}
+
+	public Event(Date _date, String _name, String _place, String _dis, Repeated _repeat) {
+		id = _date.hashCode() + _name.hashCode() + _place.hashCode() + _dis.hashCode() + _repeat.hashCode();
+		m_date = _date;
+		m_name = _name;
+		m_place = _place;
+		m_discription = _dis;
+		m_repeat = _repeat;
 	}
 
 	public int getId() {
