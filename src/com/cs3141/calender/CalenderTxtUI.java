@@ -128,6 +128,8 @@ public class CalenderTxtUI
 				ArrayList<Event> events = eventManager.getAllEvents();
 				for (Event event : events)
 				{
+					System.out.println(event.toStringHtmlLong());
+					System.out.println(event.toStringHtmlShort());
 					System.out.println(event.m_name + ": " + event.m_discription);
 					System.out.println("Place: " + event.m_place);
 					DateFormat dateFormat = new SimpleDateFormat("EEEE MMMM d, YYYY hh:mm a");

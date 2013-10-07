@@ -1,5 +1,6 @@
 package com.cs3141.calender;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -58,6 +59,26 @@ public class Event implements Comparable {
 		}
 		throw new IllegalArgumentException();
 	}
-	//boolean m_repeat;
 
+	public String toStringHtmlLong()
+	{
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(m_date);
+		int min = calendar.get(Calendar.MINUTE);
+		int hour = (calendar.get(Calendar.HOUR) == 0 ? 12 : calendar.get(Calendar.HOUR));
+		int ampm = calendar.get(Calendar.AM_PM);
+		if(ampm == Calendar.AM)
+		{
+			return String.format("<html><p>" + m_name + ": " + m_discription +"<br>Place: " + m_place + "<br>Time: " + hour + ":%02d AM</p></html>", min);
+		}
+		else
+		{
+			return String.format("<html><p>" + m_name + ": " + m_discription +"<br>Place: " + m_place + "<br>Time: " + hour + ":%02d PM</p></html>", min);
+		}
+	}
+
+	public String toStringHtmlShort()
+	{
+			return "<html><p>" + m_name + "</p></html>";
+	}
 }
