@@ -3,15 +3,21 @@ package com.cs3141.gui;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.JList;
+
+import com.cs3141.calender.Event;
 import com.cs3141.calender.EventManager;
 
 public class delKeyListener implements KeyListener{
 
 	private EventManager manager;
 	private CalenderGui gui;
+	private JList<Event> list;
 	
-	public delKeyListener(EventManager ma, CalenderGui gu){
-		
+	public delKeyListener(EventManager ma, CalenderGui gu, JList<Event> l){
+		manager = ma;
+		gui = gu;
+		list = l;
 	}
 	
 	@Override
@@ -27,9 +33,8 @@ public class delKeyListener implements KeyListener{
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		if(e.getKeyChar() == 46){
-			//Event event = 
-			//manager.removeEvent(event);
+		if(e.getKeyChar() ==''){
+			manager.removeEvent(list.getSelectedValue());
 			gui.remake();
 		}
 	}

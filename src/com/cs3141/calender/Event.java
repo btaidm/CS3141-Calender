@@ -23,6 +23,7 @@ public class Event implements Comparable {
 	public String m_place;
 	public String m_discription;
 	public Repeated m_repeat = Repeated.NONE;
+	public static boolean longOrShort = true;
 
 	public Event(Date _date, String _name, String _place, String _dis) {
 		id = _date.hashCode() + _name.hashCode() + _place.hashCode() + _dis.hashCode() + m_repeat.hashCode();
@@ -60,6 +61,17 @@ public class Event implements Comparable {
 		throw new IllegalArgumentException();
 	}
 
+	@Override
+	public String toString()
+	{
+		if(longOrShort){
+			return toStringHtmlLong();
+		}
+		else{
+			return toStringHtmlShort();
+		}
+	}
+
 	public String toStringHtmlLong()
 	{
 		Calendar calendar = Calendar.getInstance();
@@ -67,18 +79,24 @@ public class Event implements Comparable {
 		int min = calendar.get(Calendar.MINUTE);
 		int hour = (calendar.get(Calendar.HOUR) == 0 ? 12 : calendar.get(Calendar.HOUR));
 		int ampm = calendar.get(Calendar.AM_PM);
+		int day = calendar.get(Calendar.DAY_OF_MONTH);
+		int month = calendar.get(Calendar.MONTH);
+		int year = calendar.get(Calendar.YEAR);
 		if(ampm == Calendar.AM)
 		{
-			return String.format("<html><p>" + m_name + ": " + m_discription +"<br>Place: " + m_place + "<br>Time: " + hour + ":%02d AM</p></html>", min);
+			return String.format("<html><br><p>" + (month + 1) + "/" + day + "/" + year +"</p><p>" + m_name + ": " + m_discription +"<br>Place: " + m_place + "<br>Time: " + hour + ":%02d AM</p><br></html>", min);
 		}
 		else
 		{
-			return String.format("<html><p>" + m_name + ": " + m_discription +"<br>Place: " + m_place + "<br>Time: " + hour + ":%02d PM</p></html>", min);
+			return String.format("<html><br><p>" + (month + 1) + "/" + day + "/" + year +"</p><p>" + m_name + ": " + m_discription +"<br>Place: " + m_place + "<br>Time: " + hour + ":%02d PM</p><br></html>", min);
 		}
 	}
 
 	public String toStringHtmlShort()
 	{
-			return "<html><p>" + m_name + "</p></html>";
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(m_date);
+		int day = calendar.get(Calendar.DAY_OF_MONTH);
+		return "<html><p>" + day + "</p><p>" + m_name + "</p></html>";
 	}
 }

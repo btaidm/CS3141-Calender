@@ -7,17 +7,20 @@ import java.util.Date;
 import javax.swing.JDialog;
 
 import com.cs3141.calender.*;
+import com.cs3141.util.Util;
 
 public class addEventListener implements ActionListener {
 
 	NewEventObject newEventObj;
 	JDialog dialog;
 	EventManager manager;
+	CalenderGui gui;
 
-	public addEventListener(NewEventObject newEventObj, JDialog dialog){
+	public addEventListener(NewEventObject newEventObj, JDialog dialog, CalenderGui g){
 		this.newEventObj = newEventObj;
 		this.dialog = dialog;
 		this.manager = CalenderGui.getEventManager();
+		gui = g;
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -28,6 +31,8 @@ public class addEventListener implements ActionListener {
 				event = new Event(date, newEventObj.eventName.getText(), newEventObj.eventDisc.getText(), newEventObj.eventLoc.getText(), getRepeated());
 			
 			manager.addEvent(event);
+			
+			gui.remake();
 
 			dialog.dispose();
 		}
@@ -59,7 +64,7 @@ public class addEventListener implements ActionListener {
 
 		return false;
 	}
-
+	
 	private boolean ARadioIsSelected(){
 		return (newEventObj.daily.isSelected() || newEventObj.weekly.isSelected() || newEventObj.monthly.isSelected() || newEventObj.yearly.isSelected());
 		

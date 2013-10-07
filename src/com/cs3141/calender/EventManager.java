@@ -146,7 +146,7 @@ public class EventManager
 	///TODO move away from deprecated date functions
 	public void readFromCSV(List<String> locs) throws IOException
 	{
-		this.clearEventManager();
+		//this.clearEventManager();
 		for(String location: locs){
 			location = System.getProperty("user.home") + "/" + location;
 			File file = new File(location);
@@ -187,6 +187,24 @@ public class EventManager
 		ArrayList<Event> eventRange = new ArrayList<Event>(events.values());
 		Collections.sort(eventRange);
 		return eventRange;
+	}
+	
+	public ArrayList<Event> getCurrentDayEvents() throws IllegalArgumentException
+	{
+		Calendar calendar = Calendar.getInstance();
+		
+		calendar.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMinimum(Calendar.HOUR_OF_DAY));
+		calendar.set(Calendar.MINUTE, Calendar.getInstance().getActualMinimum(Calendar.MINUTE));
+		calendar.set(Calendar.SECOND, Calendar.getInstance().getActualMinimum(Calendar.SECOND));
+		calendar.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMinimum(Calendar.MILLISECOND));
+		Date startOfMonth = calendar.getTime();
+		
+		calendar.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMaximum(Calendar.HOUR_OF_DAY));
+		calendar.set(Calendar.MINUTE, Calendar.getInstance().getActualMaximum(Calendar.MINUTE));
+		calendar.set(Calendar.SECOND, Calendar.getInstance().getActualMaximum(Calendar.SECOND));
+		calendar.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMaximum(Calendar.MILLISECOND));
+		Date endOfMonth = calendar.getTime();
+		return getRange(startOfMonth, endOfMonth);
 	}
 
 	public ArrayList<Event> getCurrentMonthEvents() throws IllegalArgumentException

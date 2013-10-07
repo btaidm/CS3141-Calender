@@ -27,25 +27,17 @@ public class AddEvent extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private static NewEventObject newEventObj;
+	private CalenderGui gui;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		try {
-			
-			AddEvent dialog = new AddEvent();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	/**
 	 * Create the dialog.
 	 */
-	public AddEvent() {
+	public AddEvent(CalenderGui g) {
+		gui = g;
 		newEventObj = new NewEventObject();
 		setBounds(100, 100, 845, 360);
 		getContentPane().setLayout(new BorderLayout());
@@ -279,7 +271,7 @@ public class AddEvent extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
-				okButton.addActionListener(new addEventListener(newEventObj, this));
+				okButton.addActionListener(new addEventListener(newEventObj, this, gui));
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);

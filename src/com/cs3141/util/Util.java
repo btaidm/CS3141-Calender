@@ -2,6 +2,7 @@ package com.cs3141.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -56,5 +57,10 @@ public class Util
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(_date);
 		return calendar.get(Calendar.DAY_OF_WEEK);
+	}
+	
+	public static ArrayList<Integer> getDaysOfWeek(){
+		//returns an array list of the current days of the week.
+		return null;
 	}
 }

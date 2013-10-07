@@ -52,7 +52,7 @@ public class CalenderGui {
 	private DefaultListModel<Event> monthlyModel;
 	private JList<Event> monthlyList;
 
-	/**
+	/**DefaultListModel
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
@@ -105,8 +105,15 @@ public class CalenderGui {
 				save.setVisible(true);
 			}
 		});
+		final EventManager ma = manager;
 
 		JMenuItem mntmNew = new JMenuItem("New");
+		mntmNew.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ma.clearEventManager();
+				forgetThis.remake();
+			}
+		});
 		JmFile.add(mntmNew);
 		JmFile.add(mntmSave);
 
@@ -129,7 +136,7 @@ public class CalenderGui {
 		JMenuItem mntmAddEvent = new JMenuItem("Add Event");
 		mntmAddEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AddEvent eventDialog = new AddEvent();
+				AddEvent eventDialog = new AddEvent(forgetThis);
 				eventDialog.setVisible(true);
 			}
 		});
@@ -147,7 +154,7 @@ public class CalenderGui {
 		tabbedPane.addTab("Daily", null, scrollPane, null);
 		
 		JList<Event> list = new JList<Event>();
-		list.addKeyListener(new delKeyListener(manager, this));
+		list.addKeyListener(new delKeyListener(manager, this, list));
 		list.setModel(model);
 		dailyList = list;
 		dailyModel = model;
@@ -157,12 +164,24 @@ public class CalenderGui {
 		tabbedPane.addTab("Weekly", null, scrollPane_1, null);
 		
 		JList<Event> list_1 = new JList<Event>();
+		model = new DefaultListModel<Event>();
+		list_1.setModel(model);
+		weeklyList = list_1;
+		weeklyModel = model;
+		list_1.addKeyListener(new delKeyListener(manager, this, list_1));
 		scrollPane_1.setViewportView(list_1);
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
 		tabbedPane.addTab("Monthly", null, scrollPane_2, null);
 		
 		JList<Event> list_2 = new JList<Event>();
+		
+		model = new DefaultListModel<Event>();
+		list_2.setModel(model);
+		monthlyList = list_2;
+		monthlyModel = model;
+		list_2.addKeyListener(new delKeyListener(manager, this, list_2));
+		
 		scrollPane_2.setViewportView(list_2);
 		
 		
@@ -171,16 +190,19 @@ public class CalenderGui {
 	
 	public void remake(){
 		dailyList.removeAll();
-		for(Event ev: manager.getAllEvents()){
+		dailyModel.clear();
+		for(Event ev: manager.getCurrentDayEvents()){
 			dailyModel.addElement(ev);
 		}
-		dailyList.removeAll();
-		for(Event ev: manager.getAllEvents()){
-			dailyModel.addElement(ev);
+		weeklyList.removeAll();
+		weeklyModel.clear();
+		for(Event ev: manager.getCurrentWeekEvents()){
+			weeklyModel.addElement(ev);
 		}
-		dailyList.removeAll();
-		for(Event ev: manager.getAllEvents()){
-			dailyModel.addElement(ev);
+		monthlyList.removeAll();
+		monthlyModel.clear();
+		for(Event ev: manager.getCurrentMonthEvents()){
+			monthlyModel.addElement(ev);
 		}
 	}
 }
