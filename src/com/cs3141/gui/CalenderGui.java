@@ -71,7 +71,7 @@ public class CalenderGui {
 	private void initialize() {
 		manager = new EventManager();
 		frame = new JFrame();
-		frame.setBounds(100, 100, 550, 500);
+		frame.setBounds(100, 100, 850, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JMenuBar menuBar = new JMenuBar();

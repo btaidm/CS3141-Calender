@@ -6,48 +6,25 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JList;
 import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
-public class FileList<X> extends JList<X> implements MouseListener {
+public class FileList implements ListSelectionListener {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private JTextField field;
+	private JList<String> list;
 
-	public FileList(JTextField field) {
+	public FileList(JTextField field, JList<String> list) {
 		super();
 		this.field = field;
+		this.list = list;
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		field.setText(this.getSelectedValue().toString());
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void valueChanged(ListSelectionEvent arg0) {
+		if(!field.getText().equals(list.getSelectedValue())){
+			field.setText(list.getSelectedValue());
+		}
 	}
 
 }

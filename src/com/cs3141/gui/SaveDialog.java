@@ -55,18 +55,23 @@ public class SaveDialog extends JDialog {
 			}
 		}
 		saveName = new JTextField();
+		saveName.setColumns(25);
 		{
 			JScrollPane scrollPane = new JScrollPane();
 			getContentPane().add(scrollPane, BorderLayout.CENTER);
 			{
-				FileList<String> list = new FileList<String>(saveName);
+				JList<String> list = new JList<String>();
+				if(saveOrLoad){
+					list.addListSelectionListener(new FileList(saveName, list));
+				}
+
 				DefaultListModel<String> model = new DefaultListModel<String>();
-				
+
 				File home = new File(System.getProperty("user.home"));
 				for(File file: home.listFiles(new filter(".csv"))){
 					if(!file.isDirectory()){
 						model.addElement(file.getName());
-						
+
 					}
 				}
 				list.setModel(model);
@@ -78,18 +83,19 @@ public class SaveDialog extends JDialog {
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JLabel lblSaveAs = new JLabel("Save as:");
-				buttonPane.add(lblSaveAs);
-			}
-			{
-				buttonPane.add(saveName);
-				saveName.setColumns(25);
+			if(saveOrLoad){
+				{
+					JLabel lblSaveAs = new JLabel("Save as:");
+					buttonPane.add(lblSaveAs);
+				}
+				{
+					buttonPane.add(saveName);
+				}
 			}
 			{
 				String text = saveOrLoad ? "Save" : "Load";
 				JButton okButton = new JButton(text);
-				okButton.addActionListener(new SaveOrLoadFile(saveOrLoad, manager, filenameList, this));
+				okButton.addActionListener(new SaveOrLoadFile(saveOrLoad, manager, saveName, this));
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);

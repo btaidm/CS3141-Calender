@@ -49,7 +49,7 @@ public class AddEvent extends JDialog {
 	 * Create the dialog.
 	 */
 	public AddEvent() {
-		setBounds(100, 100, 500, 350);
+		setBounds(100, 100, 845, 360);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -133,7 +133,7 @@ public class AddEvent extends JDialog {
 			gbc_panel.gridy = 2;
 			contentPanel.add(panel, gbc_panel);
 			{
-				JLabel lblEventDate = new JLabel("Event Date (dd-mm-yyyy)");
+				JLabel lblEventDate = new JLabel("Event Date (dd-mm-yyyy time AM/PM)");
 				panel.add(lblEventDate);
 			}
 		}
@@ -214,7 +214,7 @@ public class AddEvent extends JDialog {
 				panel.add(chckbxYes);
 			}
 			{
-				Component horizontalStrut = Box.createHorizontalStrut(50);
+				Component horizontalStrut = Box.createHorizontalStrut(60);
 				panel.add(horizontalStrut);
 			}
 			{
