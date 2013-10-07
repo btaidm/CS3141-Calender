@@ -35,25 +35,28 @@ public class SaveDialog extends JDialog {
 	private EventManager manager;
 	private JList<String> filenameList;
 	private JTextField textField;
+	private CalenderGui gui;
 
 	/**
 	 * Create the dialog.
 	 */
-	public SaveDialog(boolean saveOrLoad, EventManager manager) {
+	public SaveDialog(boolean saveOrLoad, EventManager manager, CalenderGui g) {
 		this.saveOrLoad = saveOrLoad;
 		this.manager = manager;
 		setBounds(100, 100, 450, 300);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
+		gui = g;
+		/*
 		{
 			DefaultListModel<String> model = new DefaultListModel<String>();
 			File home = new File(System.getProperty("user.home"));
-			for(File file: home.listFiles(new filter("a"))){
+			for(File file: home.listFiles(new filter(".cal.csv"))){
 				if(!file.isDirectory()){
 					model.addElement(file.getName());
 				}
 			}
-		}
+		}*/
 		saveName = new JTextField();
 		saveName.setColumns(25);
 		{
@@ -68,7 +71,7 @@ public class SaveDialog extends JDialog {
 				DefaultListModel<String> model = new DefaultListModel<String>();
 
 				File home = new File(System.getProperty("user.home"));
-				for(File file: home.listFiles(new filter(".csv"))){
+				for(File file: home.listFiles(new filter(".cal.csv"))){
 					if(!file.isDirectory()){
 						model.addElement(file.getName());
 
@@ -95,7 +98,7 @@ public class SaveDialog extends JDialog {
 			{
 				String text = saveOrLoad ? "Save" : "Load";
 				JButton okButton = new JButton(text);
-				okButton.addActionListener(new SaveOrLoadFile(saveOrLoad, manager, saveName, this));
+				okButton.addActionListener(new SaveOrLoadFile(saveOrLoad, manager, saveName, filenameList, this, gui));
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);

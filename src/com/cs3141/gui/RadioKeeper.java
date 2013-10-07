@@ -6,9 +6,14 @@ import javax.swing.JRadioButton;
 
 
 public class RadioKeeper implements ActionListener{
+	private static JRadioButton daily;
 	private static JRadioButton weekly;
 	private static JRadioButton monthly;
 	private static JRadioButton yearly;
+	
+	public static void setDaily(JRadioButton button){
+		daily=button;
+	}
 	
 	public static void setWeekly(JRadioButton button){
 		weekly=button;
@@ -24,6 +29,9 @@ public class RadioKeeper implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if(!e.getSource().equals(daily)){
+			daily.setSelected(false);
+		}
 		if(!e.getSource().equals(weekly)){
 			weekly.setSelected(false);
 		}

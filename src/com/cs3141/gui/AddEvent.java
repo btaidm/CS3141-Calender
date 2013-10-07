@@ -26,17 +26,14 @@ import java.awt.event.ActionEvent;
 public class AddEvent extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
+	private static NewEventObject newEventObj;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
+			
 			AddEvent dialog = new AddEvent();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
@@ -49,6 +46,7 @@ public class AddEvent extends JDialog {
 	 * Create the dialog.
 	 */
 	public AddEvent() {
+		newEventObj = new NewEventObject();
 		setBounds(100, 100, 845, 360);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -85,9 +83,9 @@ public class AddEvent extends JDialog {
 			gbc_panel.gridy = 0;
 			contentPanel.add(panel, gbc_panel);
 			{
-				textField = new JTextField();
-				panel.add(textField);
-				textField.setColumns(35);
+				newEventObj.eventName = new JTextField();
+				panel.add(newEventObj.eventName);
+				newEventObj.eventName.setColumns(35);
 			}
 		}
 		{
@@ -116,10 +114,10 @@ public class AddEvent extends JDialog {
 			gbc_panel.gridy = 1;
 			contentPanel.add(panel, gbc_panel);
 			{
-				textField_1 = new JTextField();
-				textField_1.setHorizontalAlignment(SwingConstants.LEFT);
-				panel.add(textField_1);
-				textField_1.setColumns(35);
+				newEventObj.eventDisc = new JTextField();
+				newEventObj.eventDisc.setHorizontalAlignment(SwingConstants.LEFT);
+				panel.add(newEventObj.eventDisc);
+				newEventObj.eventDisc.setColumns(35);
 			}
 		}
 		{
@@ -133,7 +131,7 @@ public class AddEvent extends JDialog {
 			gbc_panel.gridy = 2;
 			contentPanel.add(panel, gbc_panel);
 			{
-				JLabel lblEventDate = new JLabel("Event Date (dd-mm-yyyy time AM/PM)");
+				JLabel lblEventDate = new JLabel("Event Date (MM/dd/yyyy hh:mm a)");
 				panel.add(lblEventDate);
 			}
 		}
@@ -148,9 +146,9 @@ public class AddEvent extends JDialog {
 			gbc_panel.gridy = 2;
 			contentPanel.add(panel, gbc_panel);
 			{
-				textField_2 = new JTextField();
-				panel.add(textField_2);
-				textField_2.setColumns(35);
+				newEventObj.eventDate = new JTextField();
+				panel.add(newEventObj.eventDate);
+				newEventObj.eventDate.setColumns(35);
 			}
 		}
 		{
@@ -179,9 +177,9 @@ public class AddEvent extends JDialog {
 			gbc_panel.gridy = 3;
 			contentPanel.add(panel, gbc_panel);
 			{
-				textField_3 = new JTextField();
-				panel.add(textField_3);
-				textField_3.setColumns(35);
+				newEventObj.eventLoc = new JTextField();
+				panel.add(newEventObj.eventLoc);
+				newEventObj.eventLoc.setColumns(35);
 			}
 		}
 		{
@@ -210,30 +208,36 @@ public class AddEvent extends JDialog {
 			gbc_panel.gridy = 4;
 			contentPanel.add(panel, gbc_panel);
 			{
-				JCheckBox chckbxYes = new JCheckBox("Yes");
-				panel.add(chckbxYes);
+				newEventObj.checkbox = new JCheckBox("Yes");
+				panel.add(newEventObj.checkbox);
 			}
 			{
 				Component horizontalStrut = Box.createHorizontalStrut(60);
 				panel.add(horizontalStrut);
 			}
 			{
-				JRadioButton rdbtnWeekly = new JRadioButton("Weekly");
-				rdbtnWeekly.addActionListener(new RadioKeeper());
-				RadioKeeper.setWeekly(rdbtnWeekly);
-				panel.add(rdbtnWeekly);
+				newEventObj.daily = new JRadioButton("Daily");
+				newEventObj.daily.addActionListener(new RadioKeeper());
+				RadioKeeper.setDaily(newEventObj.daily);
+				panel.add(newEventObj.daily);
 			}
 			{
-				JRadioButton rdbtnMonthly = new JRadioButton("Monthly");
-				rdbtnMonthly.addActionListener(new RadioKeeper());
-				RadioKeeper.setMonthly(rdbtnMonthly);
-				panel.add(rdbtnMonthly);
+				newEventObj.weekly = new JRadioButton("Weekly");
+				newEventObj.weekly.addActionListener(new RadioKeeper());
+				RadioKeeper.setWeekly(newEventObj.weekly);
+				panel.add(newEventObj.weekly);
 			}
 			{
-				JRadioButton rdbtnYearly = new JRadioButton("Yearly");
-				rdbtnYearly.addActionListener(new RadioKeeper());
-				RadioKeeper.setYearly(rdbtnYearly);
-				panel.add(rdbtnYearly);
+				newEventObj.monthly = new JRadioButton("Monthly");
+				newEventObj.monthly.addActionListener(new RadioKeeper());
+				RadioKeeper.setMonthly(newEventObj.monthly);
+				panel.add(newEventObj.monthly);
+			}
+			{
+				newEventObj.yearly = new JRadioButton("Yearly");
+				newEventObj.yearly.addActionListener(new RadioKeeper());
+				RadioKeeper.setYearly(newEventObj.yearly);
+				panel.add(newEventObj.yearly);
 			}
 		}
 		{
@@ -264,9 +268,9 @@ public class AddEvent extends JDialog {
 			gbc_panel.gridy = 5;
 			contentPanel.add(panel, gbc_panel);
 			{
-				textField_4 = new JTextField();
-				panel.add(textField_4);
-				textField_4.setColumns(35);
+				newEventObj.numTimesRepeated = new JTextField();
+				panel.add(newEventObj.numTimesRepeated);
+				newEventObj.numTimesRepeated.setColumns(35);
 			}
 		}
 		{
@@ -275,6 +279,7 @@ public class AddEvent extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
+				okButton.addActionListener(new addEventListener(newEventObj, this));
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);

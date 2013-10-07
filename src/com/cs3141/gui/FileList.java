@@ -22,8 +22,10 @@ public class FileList implements ListSelectionListener {
 
 	@Override
 	public void valueChanged(ListSelectionEvent arg0) {
-		if(!field.getText().equals(list.getSelectedValue())){
-			field.setText(list.getSelectedValue());
+		if(field != null){
+			if(!field.getText().equals(list.getSelectedValue())){
+				field.setText(list.getSelectedValue());
+			}
 		}
 	}
 

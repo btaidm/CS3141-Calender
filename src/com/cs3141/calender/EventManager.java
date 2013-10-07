@@ -79,20 +79,20 @@ public class EventManager
 				calendar.setTime(e.m_date);
 				switch (e.m_repeat)
 				{
-					case DAILY:
-						calendar.add(Calendar.DAY_OF_MONTH, 1);
-						break;
-					case MONTHLY:
-						calendar.add(Calendar.MONTH, 1);
-						break;
-					case WEEKLY:
-						calendar.add(Calendar.WEEK_OF_YEAR, 1);
-						break;
-					case YEARLY:
-						calendar.add(Calendar.YEAR, 1);
-						break;
-					default:
-						break;
+				case DAILY:
+					calendar.add(Calendar.DAY_OF_MONTH, 1);
+					break;
+				case MONTHLY:
+					calendar.add(Calendar.MONTH, 1);
+					break;
+				case WEEKLY:
+					calendar.add(Calendar.WEEK_OF_YEAR, 1);
+					break;
+				case YEARLY:
+					calendar.add(Calendar.YEAR, 1);
+					break;
+				default:
+					break;
 				}
 				Event newEvent = new Event(calendar.getTime(),e.m_name,e.m_place,e.m_discription,e.m_repeat);
 				eventList.add(newEvent);
@@ -109,21 +109,18 @@ public class EventManager
 
 	public void saveToCSV() throws IOException
 	{
-		String location = System.getProperty("user.home");
+		String location = System.getProperty("newCalender");
 		saveToCSV(location);
 	}
 
-	public void saveToCSV(String location) throws IOException
+	public void saveToCSV(String filename) throws IOException
 	{
-		if (!location.endsWith(".csv"))
+		if (!filename.endsWith(".cal.csv"))
 		{
-			if (!location.endsWith("/"))
-			{
-				location = location + "/";
-			}
-			location = location + "calenderData.csv";
+			filename = filename + ".cal.csv";
 		}
-		File file = new File(location);
+		filename = System.getProperty("user.home") + "/" + filename;
+		File file = new File(filename);
 		FileWriter writer = new FileWriter(file);
 		BufferedWriter buffWriter = new BufferedWriter(writer);
 
@@ -139,40 +136,38 @@ public class EventManager
 
 	public void readFromCSV() throws IOException
 	{
-		String location = System.getProperty("user.home");
+		ArrayList<String> location = new ArrayList<String>();
+		location.add(System.getProperty("user.home"));
 		readFromCSV(location);
 	}
 
 	///TODO we need to make embedded commas not break the IO
 	///TODO move away from deprecated date functions
-	public void readFromCSV(String location) throws IOException
+	public void readFromCSV(List<String> locs) throws IOException
 	{
-		if (!location.endsWith(".csv"))
-		{
-			if (!location.endsWith("/"))
-			{
-				location = location + "/";
-			}
-			location = location + "calenderData.csv";
-		}
-		File file = new File(location);
-		FileReader reader = new FileReader(file);
-		BufferedReader buffReader = new BufferedReader(reader);
+		this.clearEventManager();
+		for(String location: locs){
+			location = System.getProperty("user.home") + "/" + location;
+			File file = new File(location);
+			FileReader reader = new FileReader(file);
+			BufferedReader buffReader = new BufferedReader(reader);
 
-		while (buffReader.ready())
-		{
-			String nextLine = buffReader.readLine();
-			String[] allElements = nextLine.split("\\|");
-			if (allElements.length >= 4)
+			while (buffReader.ready())
 			{
-				Event event = new Event(Util.tryParse(allElements[0]), allElements[1], allElements[2], allElements[3]);
-				if (!events.containsKey(event.getId()))
+				String nextLine = buffReader.readLine();
+				String[] allElements = nextLine.split("\\|");
+				if (allElements.length >= 4)
 				{
-					events.put(event.getId(), event);
+					Event event = new Event(Util.tryParse(allElements[0]), allElements[1], allElements[2], allElements[3]);
+					if (!events.containsKey(event.getId()))
+					{
+						events.put(event.getId(), event);
+					}
 				}
 			}
+
+			buffReader.close();
 		}
-		buffReader.close();
 	}
 
 	public void printAllEvents()

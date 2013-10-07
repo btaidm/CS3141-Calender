@@ -14,38 +14,56 @@ public class SaveOrLoadFile implements ActionListener {
 	private EventManager manager;
 	private boolean saveOrLoad;
 	private JTextField textField;
+	private JList<String> list;
 	private SaveDialog dialog;
+	private CalenderGui gui;
 
-	public SaveOrLoadFile(boolean saveOrLoad, EventManager manager, JTextField textField, SaveDialog dialog){
+	public SaveOrLoadFile(boolean saveOrLoad, EventManager manager, JTextField textField, JList<String> list, SaveDialog dialog, CalenderGui g){
 		this.manager = manager;
 		this.saveOrLoad = saveOrLoad;
 		this.textField = textField;
 		this.dialog = dialog;
+		this.list = list;
+		gui = g;
 
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(textField.getText() != null){
-			if(saveOrLoad){
+		
+		if(saveOrLoad){
+			if(textField.getText() != null){
 				save();
+				dialog.dispose();
 			}
-			else{
+		}
+		else{
+			if(list.getSelectedValue() != null){
 				load();
+				dialog.dispose();
 			}
-			dialog.dispose();
 		}
 
 	}
 
 	private void save(){
-
-		System.out.println("save " + textField.getText());
+		try {
+			manager.saveToCSV(textField.getText());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
 	private void load(){
-		System.out.println("load " + textField.getText());
+		try {
+			manager.readFromCSV(list.getSelectedValuesList());
+			gui.remake();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
