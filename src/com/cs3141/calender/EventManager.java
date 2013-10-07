@@ -1,6 +1,8 @@
 package com.cs3141.calender;
 
 
+import com.cs3141.util.Util;
+
 import java.util.*;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -14,7 +16,6 @@ public class EventManager
 {
 
 	private HashMap<Integer, Event> events;
-	private Calendar cal = Calendar.getInstance();
 
 
 	public EventManager()

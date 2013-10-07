@@ -1,16 +1,11 @@
-package com.cs3141.calender;
+package com.cs3141.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Tim
- * Date: 10/3/13
- * Time: 9:43 AM
- * To change this template use File | Settings | File Templates.
- */
+
 public class Util
 {
 	private static final String[] formatStrings = {"MM/dd/yyyy hh:mm a", "MM-dd-yyyy hh:mm a",
@@ -54,5 +49,12 @@ public class Util
 		}
 
 		return null;
+	}
+
+	public static int parseDay(Date _date)
+	{
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(_date);
+		return calendar.get(Calendar.DAY_OF_WEEK);
 	}
 }
