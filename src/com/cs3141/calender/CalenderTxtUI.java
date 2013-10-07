@@ -1,8 +1,9 @@
 package com.cs3141.calender;
 
+import com.cs3141.util.Util;
+
 import java.io.IOException;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,7 +28,6 @@ public class CalenderTxtUI
 	public static void main(String[] args)
 	{
 		Scanner input = new Scanner(System.in);
-		Scanner inputInt = new Scanner(System.in);
 		EventManager eventManager = new EventManager();
 		try
 		{
@@ -142,6 +142,7 @@ public class CalenderTxtUI
 				ArrayList<Event> events = eventManager.getCurrentMonthEvents();
 				for (Event event : events)
 				{
+					Util.parseDay(event.m_date);
 					System.out.println(event.m_name + ": " + event.m_discription);
 					System.out.println("Place: " + event.m_place);
 					DateFormat dateFormat = new SimpleDateFormat("EEEE MMMM d, YYYY hh:mm a");
