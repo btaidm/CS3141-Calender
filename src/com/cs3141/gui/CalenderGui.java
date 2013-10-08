@@ -51,6 +51,8 @@ public class CalenderGui {
 	private JList<Event> weeklyList;
 	private DefaultListModel<Event> monthlyModel;
 	private JList<Event> monthlyList;
+	private DefaultListModel<Event> yearlyModel;
+	private JList<Event> yearlyList;
 
 	/**DefaultListModel
 	 * Launch the application.
@@ -184,6 +186,16 @@ public class CalenderGui {
 		
 		scrollPane_2.setViewportView(list_2);
 		
+		JScrollPane scrollPane_3 = new JScrollPane();
+		tabbedPane.addTab("Yearly", null, scrollPane_3, null);
+		
+		JList<Event> list_3 = new JList<Event>();
+		model = new DefaultListModel<Event>();
+		list_3.setModel(model);
+		yearlyList = list_3;
+		yearlyModel = model;
+		scrollPane_3.setViewportView(list_3);
+		
 		
 
 	}
@@ -203,6 +215,11 @@ public class CalenderGui {
 		monthlyModel.clear();
 		for(Event ev: manager.getCurrentMonthEvents()){
 			monthlyModel.addElement(ev);
+		}
+		yearlyList.removeAll();
+		yearlyModel.clear();
+		for(Event ev: manager.getCurrentYearEvents()){
+			yearlyModel.addElement(ev);
 		}
 	}
 }

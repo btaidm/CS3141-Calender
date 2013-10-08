@@ -159,7 +159,7 @@ public class EventManager
 				String[] allElements = nextLine.split("\\|");
 				if (allElements.length >= 4)
 				{
-					Event event = new Event(Util.tryParse(allElements[0]), allElements[1], allElements[2], allElements[3]);
+					Event event = new Event(Util.tryParse(allElements[0]), allElements[2], allElements[3], allElements[1], Repeated.valueOf(allElements[4]));
 					if (!events.containsKey(event.getId()))
 					{
 						events.put(event.getId(), event);
