@@ -1,3 +1,11 @@
+/**
+ * @author mfmansfi
+ * 
+ * @date 10/7/2013
+ * 
+ * listener for the OK button on the add event GUI
+ */
+
 package com.cs3141.gui;
 
 import java.awt.event.ActionEvent;
@@ -15,7 +23,12 @@ public class addEventListener implements ActionListener {
 	JDialog dialog;
 	EventManager manager;
 	CalenderGui gui;
-
+	/**
+	 * 
+	 * @param newEventObj the event object that is passed in. 
+	 * @param dialog the dialog that will popup
+	 * @param g the main gui
+	 */
 	public addEventListener(NewEventObject newEventObj, JDialog dialog, CalenderGui g){
 		this.newEventObj = newEventObj;
 		this.dialog = dialog;
@@ -37,7 +50,10 @@ public class addEventListener implements ActionListener {
 			dialog.dispose();
 		}
 	}
-
+	/**
+	 * returns true if any of the text box's in dialog are empty
+	 * @return boolean 
+	 */
 	private boolean anyTextNull(){
 		if(newEventObj.eventDate.getText() == null){
 			return true;
@@ -65,12 +81,20 @@ public class addEventListener implements ActionListener {
 		return false;
 	}
 	
+	
+	/**
+	 * returns true if any of the radio buttons for repeating are selected
+	 * @return boolean
+	 */
 	private boolean ARadioIsSelected(){
 		return (newEventObj.daily.isSelected() || newEventObj.weekly.isSelected() || newEventObj.monthly.isSelected() || newEventObj.yearly.isSelected());
 		
 		
 	}
-	
+	/**
+	 * returns weather or not the event will be repeated.
+	 * @return boolean
+	 */
 	private Repeated getRepeated(){
 		if(newEventObj.daily.isSelected()){
 			return Repeated.DAILY;

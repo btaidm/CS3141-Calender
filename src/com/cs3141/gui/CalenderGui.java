@@ -1,3 +1,11 @@
+/**
+ * @author mfmansfi
+ * 
+ * @date 10/7/2013
+ * 
+ * Calender main GUI
+ */
+
 package com.cs3141.gui;
 import java.awt.EventQueue;
 
@@ -72,6 +80,10 @@ public class CalenderGui {
 		});
 	}
 
+	/**
+	 * returns a copy of the event manager.
+	 * @return EventManager
+	 */
 	public static EventManager getEventManager(){
 		return manager;
 	}
@@ -84,7 +96,7 @@ public class CalenderGui {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialize the contents of the frame. mostly autogened
 	 */
 
 	private void initialize() {
@@ -199,8 +211,13 @@ public class CalenderGui {
 		
 
 	}
+
+	/**
+	 * remakes the calendars 
+	 */
 	
 	public void remake(){
+		//clears out the list and the model, and then repopulates them both.
 		dailyList.removeAll();
 		dailyModel.clear();
 		for(Event ev: manager.getCurrentDayEvents()){

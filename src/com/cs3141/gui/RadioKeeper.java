@@ -1,3 +1,11 @@
+/**
+ * @author mfmansfi
+ * 
+ * @date 10/7/2013
+ * 
+ * keeps all of the radio buttons playing nice together.
+ */
+
 package com.cs3141.gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,6 +37,9 @@ public class RadioKeeper implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		/**
+		 * keeps the radio buttons tied together
+		 */
 		if(!e.getSource().equals(daily)){
 			daily.setSelected(false);
 		}

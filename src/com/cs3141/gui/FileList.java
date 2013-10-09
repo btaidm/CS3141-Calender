@@ -1,3 +1,11 @@
+/**
+ * @author mfmansfi
+ * 
+ * @date 10/7/2013
+ * 
+ * listens for changes in the FileList
+ */
+
 package com.cs3141.gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +21,12 @@ public class FileList implements ListSelectionListener {
 
 	private JTextField field;
 	private JList<String> list;
+	
+	/**
+	 * takes in a field that will be filled with the selected filename, and a list that will have the filename pulled out of.
+	 * @param field
+	 * @param list
+	 */
 
 	public FileList(JTextField field, JList<String> list) {
 		super();

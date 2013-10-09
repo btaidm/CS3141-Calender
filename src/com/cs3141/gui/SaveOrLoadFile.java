@@ -1,3 +1,11 @@
+/**
+ * @author mfmansfi
+ * 
+ * @date 10/7/2013
+ * 
+ * Listener for saving or loading data
+ */
+
 package com.cs3141.gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +26,15 @@ public class SaveOrLoadFile implements ActionListener {
 	private SaveDialog dialog;
 	private CalenderGui gui;
 
+	/**
+	 * 
+	 * @param saveOrLoad if true, saves program
+	 * @param manager the event manager tied to the stuff
+	 * @param textField the text field that file names come from. for saving
+	 * @param list the list load files come from
+	 * @param dialog the dialog 
+	 * @param g
+	 */
 	public SaveOrLoadFile(boolean saveOrLoad, EventManager manager, JTextField textField, JList<String> list, SaveDialog dialog, CalenderGui g){
 		this.manager = manager;
 		this.saveOrLoad = saveOrLoad;
@@ -45,23 +62,27 @@ public class SaveOrLoadFile implements ActionListener {
 		}
 
 	}
-
+	/**
+	 * saves the current event manager to the file specified in textField
+	 */
 	private void save(){
 		try {
 			manager.saveToCSV(textField.getText());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 
 	}
-
+	/**
+	 * loads the selected event manager.
+	 */
 	private void load(){
 		try {
 			manager.readFromCSV(list.getSelectedValuesList());
 			gui.remake();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	}
