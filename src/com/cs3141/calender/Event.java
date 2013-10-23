@@ -10,10 +10,9 @@ import java.util.Date;
  * Time: 2:09 PM
  */
 
-/*! /brief
- *
- *
- *
+/**
+ * The Event class contains the data of events
+ * @author Tim Bradt
  */
 public class Event implements Comparable {
 
@@ -25,6 +24,13 @@ public class Event implements Comparable {
 	public Repeated m_repeat = Repeated.NONE;
 	public static boolean longOrShort = true;
 
+	/**
+	 *
+	 * @param _date
+	 * @param _name
+	 * @param _place
+	 * @param _dis
+	 */
 	public Event(Date _date, String _name, String _place, String _dis) {
 		id = _date.hashCode() + _name.hashCode() + _place.hashCode() + _dis.hashCode() + m_repeat.hashCode();
 		m_date = _date;
@@ -33,6 +39,14 @@ public class Event implements Comparable {
 		m_discription = _dis;
 	}
 
+	/**
+	 *
+	 * @param _date
+	 * @param _name
+	 * @param _place
+	 * @param _dis
+	 * @param _repeat
+	 */
 	public Event(Date _date, String _name, String _place, String _dis, Repeated _repeat) {
 		id = _date.hashCode() + _name.hashCode() + _place.hashCode() + _dis.hashCode() + _repeat.hashCode();
 		m_date = _date;
@@ -42,10 +56,20 @@ public class Event implements Comparable {
 		m_repeat = _repeat;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public int getId() {
 		return id;
 	}
 
+	/**
+	 *
+	 * @param o
+	 * @return
+	 * @throws IllegalArgumentException
+	 */
 	@Override
 	public int compareTo(Object o) throws IllegalArgumentException {
 		if (o instanceof Event) {
@@ -61,6 +85,10 @@ public class Event implements Comparable {
 		throw new IllegalArgumentException();
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	@Override
 	public String toString()
 	{
@@ -72,6 +100,10 @@ public class Event implements Comparable {
 		}
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public String toStringHtmlLong()
 	{
 		Calendar calendar = Calendar.getInstance();
@@ -92,6 +124,10 @@ public class Event implements Comparable {
 		}
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public String toStringHtmlShort()
 	{
 		Calendar calendar = Calendar.getInstance();
