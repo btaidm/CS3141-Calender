@@ -25,6 +25,10 @@ public class CalenderTxtUI
 			"\tview, v: View events from nearest to furthest out\n" +
 			"\tsave, s: Save the events to the calender file\n";
 
+	/**
+	 *
+	 * @param args
+	 */
 	public static void main(String[] args)
 	{
 		Scanner input = new Scanner(System.in);

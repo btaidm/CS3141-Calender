@@ -14,32 +14,56 @@ import java.io.IOException;
 
 public class EventManager
 {
-
+	/**
+	 *
+	 */
 	private HashMap<Integer, Event> events;
 
-
+	/**
+	 *
+	 */
 	public EventManager()
 	{
 		events = new HashMap<Integer, Event>();
 	}
 
+	/**
+	 *
+	 */
 	public void clearEventManager()
 	{
 		events = new HashMap<Integer, Event>();
 	}
 
-
+	/**
+	 *
+	 * @param key
+	 * @return
+	 */
 	public Event removeEvent(Integer key)
 	{
 		return events.remove(key);
 	}
 
+	/**
+	 *
+	 * @param event
+	 * @return
+	 */
 	public Event addEvent(Event event)
 	{
 		events.put(event.getId(), event);
 		return event;
 	}
 
+	/**
+	 *
+	 * @param date
+	 * @param name
+	 * @param place
+	 * @param description
+	 * @return
+	 */
 	public Event addEvent(Date date, String name, String place, String description)
 	{
 		Event event = new Event(date, name, place, description);
@@ -47,22 +71,43 @@ public class EventManager
 		return event;
 	}
 
-
+	/**
+	 *
+	 * @param event
+	 * @return
+	 */
 	public Event removeEvent(Event event)
 	{
 		return events.remove(event.getId());
 	}
 
+	/**
+	 *
+	 * @param key
+	 * @return
+	 */
 	public Event getEvent(Integer key)
 	{
 		return events.get(key);
 	}
 
+	/**
+	 *
+	 * @param id
+	 * @return
+	 */
 	public boolean containsEventWithId(Integer id)
 	{
 		return events.containsKey(id);
 	}
 
+	/**
+	 *
+	 * @param beginning
+	 * @param end
+	 * @return
+	 * @throws IllegalArgumentException
+	 */
 	public ArrayList<Event> getRange(Date beginning, Date end) throws IllegalArgumentException
 	{
 		if (beginning.after(end))
@@ -108,12 +153,21 @@ public class EventManager
 		return eventRange;
 	}
 
+	/**
+	 *
+	 * @throws IOException
+	 */
 	public void saveToCSV() throws IOException
 	{
 		String location = System.getProperty("newCalender");
 		saveToCSV(location);
 	}
 
+	/**
+	 *
+	 * @param filename
+	 * @throws IOException
+	 */
 	public void saveToCSV(String filename) throws IOException
 	{
 		if (!filename.endsWith(".cal.csv"))
@@ -134,7 +188,10 @@ public class EventManager
 		buffWriter.close();
 	}
 
-
+	/**
+	 *
+	 * @throws IOException
+	 */
 	public void readFromCSV() throws IOException
 	{
 		ArrayList<String> location = new ArrayList<String>();
@@ -142,8 +199,11 @@ public class EventManager
 		readFromCSV(location);
 	}
 
-	///TODO we need to make embedded commas not break the IO
-	///TODO move away from deprecated date functions
+	/**
+	 *
+	 * @param locs
+	 * @throws IOException
+	 */
 	public void readFromCSV(List<String> locs) throws IOException
 	{
 		//this.clearEventManager();
@@ -171,6 +231,9 @@ public class EventManager
 		}
 	}
 
+	/**
+	 *
+	 */
 	public void printAllEvents()
 	{
 		for (Integer key : events.keySet())
@@ -181,6 +244,10 @@ public class EventManager
 		}
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public ArrayList<Event> getAllEvents()
 	{
 
@@ -188,7 +255,12 @@ public class EventManager
 		Collections.sort(eventRange);
 		return eventRange;
 	}
-	
+
+	/**
+	 *
+	 * @return
+	 * @throws IllegalArgumentException
+	 */
 	public ArrayList<Event> getCurrentDayEvents() throws IllegalArgumentException
 	{
 		Calendar calendar = Calendar.getInstance();
@@ -207,6 +279,11 @@ public class EventManager
 		return getRange(startOfMonth, endOfMonth);
 	}
 
+	/**
+	 *
+	 * @return
+	 * @throws IllegalArgumentException
+	 */
 	public ArrayList<Event> getCurrentMonthEvents() throws IllegalArgumentException
 	{
 		Calendar calendar = Calendar.getInstance();
@@ -225,6 +302,11 @@ public class EventManager
 		return getRange(startOfMonth, endOfMonth);
 	}
 
+	/**
+	 *
+	 * @return
+	 * @throws IllegalArgumentException
+	 */
 	public ArrayList<Event> getCurrentYearEvents() throws IllegalArgumentException
 	{
 		Calendar calendar = Calendar.getInstance();
@@ -245,6 +327,11 @@ public class EventManager
 		return getRange(startOfMonth, endOfMonth);
 	}
 
+	/**
+	 *
+	 * @return
+	 * @throws IllegalArgumentException
+	 */
 	public ArrayList<Event> getCurrentWeekEvents() throws IllegalArgumentException
 	{
 		Calendar calendar = Calendar.getInstance();
@@ -263,6 +350,11 @@ public class EventManager
 		return getRange(startOfMonth, endOfMonth);
 	}
 
+	/**
+	 *
+	 * @return
+	 * @throws IllegalArgumentException
+	 */
 	public ArrayList<Event> getCurrentAgenda() throws IllegalArgumentException
 	{
 		Calendar calendar = Calendar.getInstance();
